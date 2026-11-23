@@ -13,12 +13,12 @@ changing a single line of its configuration.
 
 ```
 windows-examples\
-├── clserver_Inkling-2-Mini-UD-Q2_K_XL.cmd   server  9.14 GB  ctx 100000
-├── clserver_Inkling-2-Mini-UD-Q3_K_XL.cmd   server 13.63 GB  ctx 100000
-├── clserver_Inkling-2-Mini-UD-Q4_K_XL.cmd   server 17.63 GB  ctx 100000
-├── clstart_Inkling-2-Mini-UD-Q2_K_XL.cmd    CLI chat (same three quants)
-├── clstart_Inkling-2-Mini-UD-Q3_K_XL.cmd
-├── clstart_Inkling-2-Mini-UD-Q4_K_XL.cmd
+├── clserver_Inkling-2-Mini-Q2_K_XL.cmd   server  9.14 GB  ctx 100000
+├── clserver_Inkling-2-Mini-Q3_K_XL.cmd   server 13.63 GB  ctx 100000
+├── clserver_Inkling-2-Mini-Q4_K_XL.cmd   server 17.63 GB  ctx 100000
+├── clstart_Inkling-2-Mini-Q2_K_XL.cmd    CLI chat (same three quants)
+├── clstart_Inkling-2-Mini-Q3_K_XL.cmd
+├── clstart_Inkling-2-Mini-Q4_K_XL.cmd
 ├── clstop.cmd                               stop the server and the engine
 ├── clcheck.cmd                              memory, GPU, engine and API status
 ├── cltest.cmd                               API smoke test
@@ -53,9 +53,9 @@ Start `coli serve` in the foreground; `Ctrl+C` or `clstop.cmd` stops it.
 
 | Script | Quant | Size | ctx | Port | Backend |
 |---|---|---|---|---|---|
-| `clserver_Inkling-2-Mini-UD-Q2_K_XL.cmd` | `Q2_K_XL` | 9.14 GB | 100000 | 9931 | CUDA |
-| `clserver_Inkling-2-Mini-UD-Q3_K_XL.cmd` | `Q3_K_XL` | 13.63 GB | 100000 | 9931 | CUDA |
-| `clserver_Inkling-2-Mini-UD-Q4_K_XL.cmd` | `Q4_K_XL` | 17.63 GB | 100000 | 9931 | CUDA |
+| `clserver_Inkling-2-Mini-Q2_K_XL.cmd` | `Q2_K_XL` | 9.14 GB | 100000 | 9931 | CUDA |
+| `clserver_Inkling-2-Mini-Q3_K_XL.cmd` | `Q3_K_XL` | 13.63 GB | 100000 | 9931 | CUDA |
+| `clserver_Inkling-2-Mini-Q4_K_XL.cmd` | `Q4_K_XL` | 17.63 GB | 100000 | 9931 | CUDA |
 
 ### CLI scripts
 
@@ -156,7 +156,7 @@ colibri keeps the **KV cache in VRAM** (about 7 GB at 100k, no option to move it
 expert residency compete for the same 10 GB. With `IQ1_S` (7.76 GB) the tier grows to 3.45 GiB at
 100k and the decode reaches 1.41 t/s.
 
-**llama.cpp with the same model class on the same card: 22–26 t/s at 100k context**, because it
+**llama.cpp with the same model class on the same card: 17.8–19.2 t/s at 131072 context** (build b12649, Q8_0 KV, `--spec-draft-n-max 2`), because it
 keeps the weights in VRAM and the KV cache in RAM (`--no-kv-offload`). colibri is the better
 engine only on cards with 24 GB or more, where the whole expert set stays resident.
 
